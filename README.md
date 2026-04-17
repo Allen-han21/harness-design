@@ -52,11 +52,19 @@ This repository exists to explore that system design layer in a practical way.
 
 Principle documents may be written in Korean when that reduces maintenance cost while preserving portable repository structure.
 
+## Adapters
+
+- [Adapters Overview](./docs/adapters/README.md)
+- [Codex Adapter](./docs/adapters/codex.md)
+- [Claude Code Adapter](./docs/adapters/claude-code.md)
+- [Gemini Adapter](./docs/adapters/gemini.md)
+
 ## Suggested Structure
 
 ```text
 docs/
   principles/
+  adapters/
   templates/
   patterns/
   plans/
