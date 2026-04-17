@@ -16,6 +16,12 @@ The focus is not only on prompting, but on the full execution environment around
 - observability and feedback
 - human escalation points
 
+The repository favors a practical operating model:
+
+- working notes can stay easy to edit
+- reusable structure should remain portable
+- only validated knowledge should become long-lived standards
+
 ## Why This Repo
 
 As models become more capable, the main engineering problem shifts from "what should we ask?" to "what system should we build around the model?"
@@ -39,11 +45,19 @@ This repository exists to explore that system design layer in a practical way.
 - cost and latency tradeoff experiments
 - safety boundaries for state-changing actions
 
+## Principles
+
+- [Local AI Workspace Policy](./docs/principles/local-ai-workspace-policy.md)
+- [Document Language Policy](./docs/principles/document-language-policy.md)
+
+Principle documents may be written in Korean when that reduces maintenance cost while preserving portable repository structure.
+
 ## Suggested Structure
 
 ```text
 docs/
   principles/
+  templates/
   patterns/
   plans/
   evaluations/
