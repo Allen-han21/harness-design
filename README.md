@@ -45,38 +45,32 @@ This repository exists to explore that system design layer in a practical way.
 - cost and latency tradeoff experiments
 - safety boundaries for state-changing actions
 
-## Principles
+## Patterns
 
-- [Local AI Workspace Policy](./docs/principles/local-ai-workspace-policy.md)
-- [Document Language Policy](./docs/principles/document-language-policy.md)
+- [Patterns Overview](./docs/patterns/README.md)
+- [Codex Single-Agent Long-Running Harness](./docs/patterns/codex-single-agent-long-running-harness.md)
+- [Long-Running Task Completion Retrospective](./docs/patterns/long-running-task-completion-retrospective.md)
 
-Principle documents may be written in Korean when that reduces maintenance cost while preserving portable repository structure.
+## Plans
 
-## Adapters
-
-- [Adapters Overview](./docs/adapters/README.md)
-- [Codex Adapter](./docs/adapters/codex.md)
-- [Claude Code Adapter](./docs/adapters/claude-code.md)
-- [Gemini Adapter](./docs/adapters/gemini.md)
+- [Current MacBook Codex Harness Rollout Plan](./docs/plans/current-macbook-codex-harness-rollout.md)
 
 ## Suggested Structure
 
 ```text
 docs/
-  principles/
-  adapters/
-  templates/
   patterns/
   plans/
   evaluations/
+runs/
 examples/
 scripts/
 ```
 
 ## Roadmap
 
-1. Define the core design principles for long-running AI harnesses.
-2. Document reusable harness patterns and failure modes.
+1. Document reusable harness patterns and failure modes.
+2. Add concrete rollout plans for real local environments.
 3. Build small prototypes to validate orchestration choices.
 4. Add evaluation rubrics and measurable success criteria.
 5. Evolve the repository into a reusable reference project.
