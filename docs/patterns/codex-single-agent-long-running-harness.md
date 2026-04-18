@@ -24,9 +24,9 @@
 - Birgitta Boeckeler, `Harness engineering for coding agent users`, 2026-04-02
   - https://martinfowler.com/articles/harness-engineering.html
 - 로컬 PDF
-  - `프롬프트에서 하네스까지 — AI 에이전틱 패턴 4년의 기록.pdf`
-  - `Harness design for long-running application development _ Anthropic.pdf`
-  - `하네스 엔지니어링_ 에이전트 우선 세계에서 Codex 활용하기 _ OpenAI.pdf`
+  - `from-prompts-to-harnesses-four-years-of-ai-agentic-patterns.pdf`
+  - `anthropic-harness-design-long-running-application-development.pdf`
+  - `openai-harness-engineering-codex-in-an-agent-first-world.pdf`
 
 ## Synthesis
 
