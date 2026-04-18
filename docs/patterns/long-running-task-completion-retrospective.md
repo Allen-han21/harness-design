@@ -51,6 +51,12 @@
 - 그 마찰은 문서 문제인가, 검증 문제인가, 상태 관리 문제인가, 종료 규칙 문제인가
 - 다음 라운드에서 무엇을 업그레이드해야 하는가
 
+### 3. Human Approval Status
+
+- 이 작업이 사람 승인 없이 닫혀도 되는가
+- 수동 검증 승인, 제품 판단, 위험 승인 중 무엇이 남아 있는가
+- 승인 대기라면 왜 `completed`가 아니라 `approval-required`여야 하는가
+
 ## Output Shape
 
 완료 시 아래 두 섹션을 별도로 두는 것을 권장한다.
@@ -65,6 +71,12 @@
 - item
 - reason
 - expected effect
+
+### Human Approval
+
+- status: `not-required | pending | approved | rejected`
+- approver
+- remaining checks
 
 ## Recording Rules
 
@@ -81,5 +93,6 @@
 - verification 결과
 - harness direction 판단
 - next upgrade items
+- human approval status
 
 하나라도 빠지면 완료 보고 품질이 부족하다고 본다.

@@ -62,6 +62,7 @@
 Human
   -> Codex CLI / Codex App
     -> AGENTS.md
+    -> .ai/codex-start.md
     -> .ai/index.md
     -> active plan
     -> local rules
@@ -80,13 +81,16 @@ Human
 Codex가 처음 읽는 얇은 진입층이다.
 
 - `AGENTS.md`
+- `.ai/codex-start.md`
 - `.ai/index.md`
 - 가장 최신 `plan`
 - 필요 시 가장 최신 `handoff`
 
 원칙:
 
-- `AGENTS.md`는 100줄 안팎의 짧은 실행 규칙만 둔다
+- 루트 `AGENTS.md`는 팀 공용 맵과 프로젝트 기술 가이드의 시작점으로만 둔다
+- Codex 전용 실행 규칙은 `.ai/codex-start.md` 같은 repo-local 진입 문서로 분리한다
+- `AGENTS.md`는 100줄 안팎의 짧은 실행 규칙 또는 링크만 둔다
 - 상세 지식은 `docs/` 또는 `.ai/`의 구체 문서로 링크한다
 - "모든 걸 한 파일에 넣기"를 금지한다
 
@@ -100,12 +104,15 @@ Codex가 처음 읽는 얇은 진입층이다.
 <repo>/
 ├── AGENTS.md
 ├── .ai/
+│   ├── codex-start.md
 │   ├── index.md
 │   ├── local-rules.md
 │   ├── run-log.md
 │   ├── plans/
 │   │   ├── active/
+│   │   ├── blocked/
 │   │   └── completed/
+│   ├── approval-required/
 │   ├── handoffs/
 │   ├── evaluations/
 │   ├── artifacts/
@@ -118,10 +125,13 @@ Codex가 처음 읽는 얇은 진입층이다.
 
 역할:
 
+- `codex-start.md`: Codex 전용 실행 진입점
 - `index.md`: 현재 활성 작업과 핵심 문서 포인터
 - `local-rules.md`: 아직 표준화되지 않은 로컬 규칙
 - `plans/active/`: 현재 작업 계획
+- `plans/blocked/`: 기술적 또는 환경적 blocker 상태
 - `plans/completed/`: 끝난 계획 보관
+- `approval-required/`: 사람 승인 없이는 닫을 수 없는 상태
 - `handoffs/`: 재개용 상태 요약
 - `evaluations/`: 검증 결과와 종료 판단
 - `run-log.md`: 장기 작업의 중요한 결정과 사건
@@ -140,8 +150,10 @@ Codex가 처음 읽는 얇은 진입층이다.
 
 - 시작 시 반드시 읽을 파일
 - plan 없는 구현 금지
+- verification contract 없는 구현 금지
 - done criteria 없는 완료 금지
 - evaluation 없는 종료 금지
+- human approval status가 `pending`이면 completed 종료 금지
 - 장시간 작업 시 handoff 갱신
 
 ### 4. Verification Layer
@@ -181,8 +193,9 @@ Codex가 처음 읽는 얇은 진입층이다.
 
 - `completed`: done criteria와 evaluation을 모두 만족
 - `blocked`: 외부 의존성이나 환경 문제로 중단
+- `approval-required`: 수동 검증 승인, 제품 판단, 위험 승인 대기
 - `failed`: 시도했지만 목표 미달
-- `needs-human`: 제품 판단, 권한, 위험 승인 필요
+- `needs-human`: 즉시 사람 입력이 필요해 다음 구현 단계를 진행할 수 없음
 
 종료 상태는 반드시 `evaluation`과 `handoff`에 반영한다.
 
@@ -204,8 +217,10 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 다음은 최소 강제 규칙이다.
 
 - `Done Criteria` 없는 plan으로 실행 시작 금지
+- `Verification Contract` 없는 plan으로 실행 시작 금지
 - `Evaluation` 없는 완료 선언 금지
 - 빌드, 테스트, 린트 실패 상태에서 완료 처리 금지
+- `Human Approval Status = pending` 이면 `approval-required`로 상태 전이
 - 30분 이상 지속되거나 세션이 바뀌는 작업은 `handoff` 갱신
 - 같은 실패가 두 번 반복되면 `AGENTS.md`, 문서 형식, 스크립트, 린트 중 하나를 수정
 
@@ -215,10 +230,16 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 
 ### `AGENTS.md`
 
-- 시작 시 읽을 파일
+- 팀 공용 문서라는 전제를 유지한다
+- 프로젝트 기술 가이드와 민감 경로 규칙의 맵만 둔다
+- Codex 전용 루프와 상태 파일 생성 규칙은 넣지 않는다
+
+### `.ai/codex-start.md`
+
+- Codex가 시작 시 읽을 순서
 - 기본 실행 루프
 - 필수 검증 명령
-- 금지 사항
+- 상태 전이 규칙
 - 사람에게 물어야 하는 경우
 
 ### `plan`
@@ -226,8 +247,23 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 - 범위
 - 제약
 - 단계
+- verification contract
 - done criteria
 - open questions
+
+`Verification Contract` 최소 필드:
+
+- `Automated Checks`
+- `Manual Checks`
+- `Skipped Checks`
+- `Approval Needed`
+
+`Done Criteria` 최소 필드:
+
+- 기능적 완료 조건
+- 검증 완료 조건
+- 문서화 완료 조건
+- `Human Approval Status`
 
 ### `evaluation`
 
@@ -236,6 +272,7 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 - 실패 항목
 - 남은 리스크
 - 종료 권고
+- `Human Approval Status`
 
 ### `handoff`
 
@@ -263,6 +300,23 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 - Slack, Notes, 메신저 대화를 운영 상태 저장소로 쓰지 않는다
 
 이는 OpenAI가 강조한 `agent legibility`와 Mitchell Hashimoto가 강조한 `AGENTS.md + 실제 도구` 접근을 단일 에이전트 기준으로 축소한 것이다.
+
+## Shared Principles vs Repo-Local State
+
+`~/.codex/ai/` 같은 전역 경로는 선택적으로 둘 수 있지만, 기본 역할은 `reference layer`여야 한다.
+
+- 적합한 것:
+  - 공통 원칙
+  - bootstrap 예시
+  - 재사용 가능한 체크리스트
+- 부적합한 것:
+  - active plan
+  - task handoff
+  - evaluation
+  - approval 상태
+  - run artifacts
+
+이유는 간단하다. 장기 실행 상태는 `repo`, `task`, `worktree`에 강하게 묶이기 때문이다. 전역 경로를 기본 상태 저장소로 쓰면 여러 저장소와 여러 작업의 실행 흔적이 섞여 재개성과 승인 추적이 약해진다.
 
 ## Design Rule: Start Single-Agent, Add Layers Only When Forced
 
