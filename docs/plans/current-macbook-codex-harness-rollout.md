@@ -10,7 +10,7 @@
 
 - 포함:
   - `AGENTS.md`
-  - repo-local `.ai/`
+  - repo-local `ai/`
   - `plan -> implement -> evaluate -> handoff` 루프
   - 검증 명령의 명시와 기계화
   - 실패 패턴의 하네스 승격
@@ -34,9 +34,9 @@
 작업:
 
 1. 루트에 `AGENTS.md` 추가
-2. `.ai/` 생성
+2. `ai/` 생성
 3. `index`, `local-rules`, `plan`, `handoff`, `evaluation`, `run-log` 기본 문서 생성
-4. 필수 검증 명령을 `AGENTS.md`에 명시
+4. `AGENTS.md`에는 `ai/codex-start.md` 링크만 두고, 필수 검증 명령은 `ai/` 문서에 명시
 5. 활성 작업 하나를 새 하네스로 수행
 
 완료 기준:
@@ -81,7 +81,7 @@
 분류 기준:
 
 - 방향 오류: `AGENTS.md`
-- 상태 누락: `.ai/index.md`, `handoff`
+- 상태 누락: `ai/index.md`, `handoff`
 - 완료 착각: `evaluation`
 - 구조 위반: lint, test, structural check
 - 인간 판단 필요: escalation rule
@@ -101,7 +101,7 @@
 - 검증 누락 수: evaluation 없이 종료한 횟수
 - 완료 착각 수: 완료 후 추가 수정이 필요했던 횟수
 - 반복 실패 수: 동일 패턴 재발 횟수
-- 승격 수: `.ai/`에서 `docs/` 또는 `harness-design`으로 승격한 규칙 수
+- 승격 수: `ai/`에서 `docs/` 또는 `harness-design`으로 승격한 규칙 수
 
 운영 원칙:
 
@@ -113,7 +113,8 @@
 ```text
 <repo>/
 ├── AGENTS.md
-├── .ai/
+├── ai/
+│   ├── codex-start.md
 │   ├── index.md
 │   ├── local-rules.md
 │   ├── run-log.md
@@ -130,8 +131,8 @@
 ## Immediate Next Actions
 
 1. 실제로 가장 오래 걸리는 저장소 하나를 pilot repo로 고른다
-2. 이 저장소의 `AGENTS.md`를 최소 규칙만 담은 버전으로 만든다
-3. `.ai/` 기본 문서들을 만든다
+2. 이 저장소의 `AGENTS.md`는 얇은 팀 공용 안내와 `ai/codex-start.md` 링크만 두도록 만든다
+3. `ai/` 기본 문서들을 만든다
 4. 검증 명령 하나를 `scripts/verify.sh`로 고정한다
 5. 긴 작업 한 번을 끝까지 돌려 본다
 6. 반복된 실패만 `harness-design`으로 승격한다

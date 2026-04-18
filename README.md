@@ -21,6 +21,7 @@ The repository favors a practical operating model:
 - working notes can stay easy to edit
 - reusable structure should remain portable
 - only validated knowledge should become long-lived standards
+- runtime state should stay repo-local
 
 ## Why This Repo
 
@@ -58,10 +59,11 @@ This repository exists to explore that system design layer in a practical way.
 ## Suggested Structure
 
 ```text
+AGENTS.md
+ai/
 docs/
   patterns/
   plans/
-  evaluations/
 runs/
 examples/
 scripts/

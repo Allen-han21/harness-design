@@ -62,8 +62,8 @@
 Human
   -> Codex CLI / Codex App
     -> AGENTS.md
-    -> .ai/codex-start.md
-    -> .ai/index.md
+    -> ai/codex-start.md
+    -> ai/index.md
     -> active plan
     -> local rules
       -> implementation loop
@@ -81,17 +81,17 @@ Human
 Codex가 처음 읽는 얇은 진입층이다.
 
 - `AGENTS.md`
-- `.ai/codex-start.md`
-- `.ai/index.md`
+- `ai/codex-start.md`
+- `ai/index.md`
 - 가장 최신 `plan`
 - 필요 시 가장 최신 `handoff`
 
 원칙:
 
 - 루트 `AGENTS.md`는 팀 공용 맵과 프로젝트 기술 가이드의 시작점으로만 둔다
-- Codex 전용 실행 규칙은 `.ai/codex-start.md` 같은 repo-local 진입 문서로 분리한다
+- Codex 전용 실행 규칙은 `ai/codex-start.md` 같은 repo-local 진입 문서로 분리한다
 - `AGENTS.md`는 100줄 안팎의 짧은 실행 규칙 또는 링크만 둔다
-- 상세 지식은 `docs/` 또는 `.ai/`의 구체 문서로 링크한다
+- 상세 지식은 `docs/` 또는 `ai/`의 구체 문서로 링크한다
 - "모든 걸 한 파일에 넣기"를 금지한다
 
 ### 2. State Layer
@@ -103,7 +103,7 @@ Codex가 처음 읽는 얇은 진입층이다.
 ```text
 <repo>/
 ├── AGENTS.md
-├── .ai/
+├── ai/
 │   ├── codex-start.md
 │   ├── index.md
 │   ├── local-rules.md
@@ -234,7 +234,7 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 - 프로젝트 기술 가이드와 민감 경로 규칙의 맵만 둔다
 - Codex 전용 루프와 상태 파일 생성 규칙은 넣지 않는다
 
-### `.ai/codex-start.md`
+### `ai/codex-start.md`
 
 - Codex가 시작 시 읽을 순서
 - 기본 실행 루프
@@ -300,6 +300,30 @@ Codex는 항상 아래 순서로 움직이게 설계한다.
 - Slack, Notes, 메신저 대화를 운영 상태 저장소로 쓰지 않는다
 
 이는 OpenAI가 강조한 `agent legibility`와 Mitchell Hashimoto가 강조한 `AGENTS.md + 실제 도구` 접근을 단일 에이전트 기준으로 축소한 것이다.
+
+## Design Rule: Keep AGENTS.md Thin, Put Runtime State In `ai/`
+
+루트 `AGENTS.md`는 팀 공용 문서로 남기는 편이 낫다.
+
+- 팀 공용 안내
+- 프로젝트 기술 가이드
+- 민감 경로와 금지 사항
+- Codex runtime entrypoint 링크
+
+Codex 전용 실행 루프와 상태 파일은 `ai/`에 둔다.
+
+- `ai/codex-start.md`
+- `ai/index.md`
+- `ai/local-rules.md`
+- `ai/plans/`
+- `ai/evaluations/`
+- `ai/handoffs/`
+
+이 구조의 장점은 세 가지다.
+
+- 숨김 폴더보다 발견 가능성이 높다
+- 팀 공용 문서와 Codex 전용 문서를 분리하기 쉽다
+- 다른 저장소에 bootstrap 하기 쉬워진다
 
 ## Shared Principles vs Repo-Local State
 
